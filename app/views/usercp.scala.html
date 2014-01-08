@@ -1,0 +1,43 @@
+@(userForm: Form[UserInfo])(user: User)
+@import helper._
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Index</title>
+         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")" />
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/responsive.min.css")" />
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")" />
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+    </head>
+    <body>
+        <div style="text-align:center">
+		@if(user != null) {
+		@if(user.username.equalsIgnoreCase("guest")) {
+			You must be logged in to view this!
+		} else {
+			<h1><span class="@user.rank">@user.username</span></h1>
+			@helper.form(routes.Account.updateInfo()) {
+				@select(
+		    	field = userForm("rank"),
+		    	options = options(
+		    	    "admin" -> "Admin",
+					"senior" -> "Senior",
+				    "mod" -> "Mod",
+					"user" -> "User"
+			),
+			    args = '_label -> "Rank"
+		    )
+				@inputText(userForm("postcount")) 
+				@inputText(userForm("profileImage")) 
+				<input type="submit" value="Update" class="btn btn-default">
+			}
+			}
+		} else {
+			An error occured.
+		}	
+		</div>
+    </body>
+</html>

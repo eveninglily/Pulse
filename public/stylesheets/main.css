@@ -1,0 +1,27 @@
+td, th{
+padding: 3px 7px 3px 7px;
+}
+#taskinfo {
+text-align:center;
+margin-left:auto;
+margin-right:auto;
+}
+
+.admin {
+color:red;
+font-weight:bold;
+}
+
+.senior {
+color: purple;
+font-weight:bold;
+}
+
+.mod {
+color:green;
+font-weight:bold;
+}
+
+.user {
+color:blue;
+}
