@@ -12,6 +12,7 @@
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
     </head>
     <body style="text-align:center">
+		@_navbar(Application.loginCheck())
 		<h1>Login</h1>
 		<div>
 			@if(!errorMessage.equals("")) {
