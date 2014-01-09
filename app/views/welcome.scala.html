@@ -18,12 +18,12 @@
 		glyphicon glyphicon-home
 
 		Post ratings(will test post layout soon)
-		glyphicon glyphicon-thumbs-up	
-		glyphicon glyphicon-thumbs-down
-		glyphicon glyphicon-star
-		glyphicon glyphicon-heart
-		glyphicon glyphicon-flash
-		glyphicon glyphicon-wrench
+		
+		
+		
+		
+		
+		
 	
 	-->
 		@_navbar(Application.loginCheck())
@@ -31,9 +31,41 @@
 			<h1>Hello <span class="@user.rank">@user.username</span></h1>
 					
 			<a href = "/posts/1">Test Post</a>
-			<div id="tasks">
-				<!--<a href = "/tasks">View Tasks</a>-->
+			
+			<div class="post-container" style="width:65%;  display: block; margin-left: auto; margin-right: auto;">
+				<div class="panel panel-default">
+					<div class="panel-heading" style="text-align:left">I LIKE TITLESSSSSSSS</div>
+					<div class="panel-body" style="">
+						<p style="text-align:left">
+							<div class="col-md-3" style="height:75%;">[Rank]<br/>[User]<br/><br/>[User Rank Badge]<br/>[User post badge]<br/><br/>[Posts]<br/>[Rep]</div>
+							<div class="col-md-9" style="min-height:300px; text-align:left">
+                                Hi
+							</div>
+						</p>
+
+					
+					
+						<div class="row">
+							<div class="col-md-9" style=""></div>
+							<div class="col-md-3" style=" ">
+								<div class="btn-group" >
+									<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+									<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+									<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-star"></span></button>
+									<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-heart"></span></button>
+									<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-flash"></span></button>
+									<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-wrench"></span></button>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+						<hr/>
+						[Quoting and shit go here]
+						</div>	
+					</div>
+				</div>
 			</div>
+			
 		</div>
     </body>
 </html>
