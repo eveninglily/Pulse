@@ -1,0 +1,12 @@
+@(threads: List[ForumThread])
+
+<html>
+	<head>
+	</head>
+
+	<body>
+	@for(t <- threads) {
+		@t.title <br/>
+	}
+	</body>
+</html>

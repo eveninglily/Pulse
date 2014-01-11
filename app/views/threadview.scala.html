@@ -1,19 +1,27 @@
-@(user: User)
+@(thread: ForumThread)
+
+<!DOCTYPE html>
 
 <html>
-	<head>
-        <title>@user.username</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")" />
+    <head>
+        <title>Index</title>
+         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")" />
 		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/responsive.min.css")" />
 		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")" />
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
 		<script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
     </head>
-	
-	<body>
+    <body>
+	<!-- Todo: 
+		Add User Management stuff to its own dropdown
+		glyphicon glyphicon-home
+
+-->
 		@_navbar(UserUtils.loginCheck())
-		@user.username <br/>
-		@user.rank </br>
-	</bodY>
+		
+		@for(post <- thread.posts) {
+			@_post(post)
+		}
+    </body>
 </html>

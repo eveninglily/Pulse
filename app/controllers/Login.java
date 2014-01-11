@@ -27,7 +27,7 @@ public class Login extends Controller {
 		if(form.hasErrors()) {
 			return badRequest(views.html.login.render(form, "Invalid Username or Password"));
 		} else {
-			if(User.find.byId(form.get().username.toLowerCase()).password.equals(form.get().password)) {
+			if(User.find.byId(form.get().username.toLowerCase()).password().equals(form.get().password())) {
 			session().clear();
 			session("user", form.get().username.toLowerCase());
 				return redirect(routes.Application.index());

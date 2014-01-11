@@ -18,13 +18,9 @@
 		glyphicon glyphicon-home
 
 -->
-		@_navbar(Application.loginCheck())
+		@_navbar(UserUtils.loginCheck())
         <div style="text-align:center">
 			<h1>Hello <span class="@user.rank">@user.username</span></h1>
 		</div>
-		@_post() <br/>
-		@_post() <br/>
-		@_post() <br/>
-		@_post() <br/>
     </body>
 </html>

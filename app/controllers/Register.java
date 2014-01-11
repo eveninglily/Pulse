@@ -11,15 +11,15 @@ public class Register extends Controller {
 	
 	public static Result register() {
 		Form<User> form = registerForm.bindFromRequest();
-		form.get().refName = form.get().username.toLowerCase();
-		form.get().rank = Rank.mod;
-		if(User.find.byId(form.get().refName) != null){
+		form.get().id = form.get().username.toLowerCase();
+		form.get().rank = Rank.Guest;
+		if(User.find.byId(form.get().id) != null){
 		return badRequest(views.html.register.render(form, "That Username is already in use!"));
 		}
 		if(form.hasErrors()) {
 			return badRequest(views.html.register.render(form, "Invalid Username or Password"));
 		} else {
-			User.create(form.get());
+			User user = new User(form.get().username.toLowerCase(), form.get().username, form.get().password());
 			return redirect(routes.Application.index());
 		}
 	}

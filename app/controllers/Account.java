@@ -20,10 +20,11 @@ public class Account extends Controller {
 	}
 	
 	public static void setupRanks() {
-		ranks.put("admin", Rank.admin);
-		ranks.put("senior", Rank.senior);
-		ranks.put("mod", Rank.mod);
-		ranks.put("user", Rank.user);
+		ranks.put("admin", Rank.Admin);
+		ranks.put("senior", Rank.Senior);
+		ranks.put("mod", Rank.Mod);
+		ranks.put("user", Rank.User);
+		ranks.put("guest", Rank.Guest);
 	}
 	
 	static Form<UserInfo> userForm = Form.form(UserInfo.class);
@@ -39,9 +40,12 @@ public class Account extends Controller {
 			return badRequest(views.html.usercp.render(form, User.find.byId(session().get("user"))));
 		}
 		else {
-			
-			User user = User.find.byId(session().get("user"));
+			User user = UserUtils.loginCheck();
+			if(user.id.equals("guest")){
+				return badRequest(views.html.usercp.render(form, UserUtils.loginCheck()));
+			}
 			user.rank = ranks.get(form.field("rank").value());
+			user.profileImage = form.field("profileImage").value();
 			user.save();
 			return redirect(routes.Application.index());
 		}		
@@ -59,7 +63,7 @@ public class Account extends Controller {
 	}
 	
 	//Todo: Replace w/ static method
-	try{if(User.find.byId("guest") == null)User.create(new User("guest", "Guest", ""));} catch(Exception e){}
-		return ok(views.html.usercp.render(userForm, User.find.byId("guest")));
+	
+		return ok(views.html.usercp.render(userForm, UserUtils.loginCheck()));
 	}
 }
