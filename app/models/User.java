@@ -18,7 +18,7 @@ public class User extends Model{
 	public String username;
 	
 	@Required
-	private String password;
+	public String password;
 	
 	@Column
 	public Rank rank;

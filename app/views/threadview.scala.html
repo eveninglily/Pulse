@@ -20,7 +20,7 @@
 -->
 		@_navbar(UserUtils.loginCheck())
 		
-		@for(post <- thread.posts) {
+		@for(post <- Post.getPosts(thread.id)){
 			@_post(post)
 		}
     </body>

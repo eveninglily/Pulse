@@ -6,38 +6,33 @@ import play.db.ebean.*;
 import play.data.validation.Constraints.*;
 
 import javax.persistence.*;
+import javax.persistence.ElementCollection;
 
 @Entity
 @Table(name="threads")
 public class ForumThread extends Model{
 	
 	@Id
-	public double id;
+	public long id;
 	
 	@Column
 	@Required
 	public String title;
 	
 	@Column
-	@Required
 	public User creator;
 	
-	@Column
-	@Required
-	public List<Post> posts;
+	public String initialMessage;
 	
-	public static play.db.ebean.Model.Finder<Double, ForumThread> find = new Finder<Double, ForumThread>(Double.class, ForumThread.class);
+	public static play.db.ebean.Model.Finder<Long, ForumThread> find = new Finder<Long, ForumThread>(Long.class, ForumThread.class);
 	
-	public ForumThread(User creator, String title, Post initialPost) {
-      this.creator = creator;
-	  this.title = title;
-	  this.posts = new LinkedList<Post>();
-	  this.posts.add(initialPost);
-	  // System.out.println(creator);
-	  // System.out.println(title);
-	  // System.out.println(post);
-	  System.out.println(creator.username);
-	  create(this);
+	public ForumThread(User creator, String title, String initialMessage) {
+		this.creator = creator;
+		this.title = title;
+		
+		create(this);
+		System.out.println(this.id + ": On Thread Creation");
+		Post post = new Post(creator.id, initialMessage, title, this, this.id);
     }
 	
 	public static void create(ForumThread thread){

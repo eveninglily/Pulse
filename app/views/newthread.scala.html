@@ -1,0 +1,62 @@
+@(newThread: Form[ForumThread])(errorMessage: String)
+
+@import helper._
+	
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>New Thread</title>
+         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")" />
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/responsive.min.css")" />
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")" />
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+		<script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
+    </head>
+    <body style="text-align:center">
+		@_navbar(UserUtils.loginCheck())
+		
+		<div class="panel panel-default" style = "width:50%; float:center; text-aligh:center; margin:auto;">
+			<div class="panel-heading" style="text-align:left; min-height:50px">
+				<h1>New Thread</h1>
+			</div>
+			<div class="panel-body" >
+				<div class = "row">
+					<div class="col-md-6" style="">
+						<div>
+							@if(!errorMessage.equals("")) {
+								<div class="alert alert-danger alert-dismissable">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+								@errorMessage
+							</div>
+							}
+						</div>
+					</div>
+				</div>
+				
+						<div>
+							@form(routes.ThreadView.createThread()) {
+								<div class = "row">
+									<div class="col-md-6" style="text-align:left">
+										@helper.input(newThread("title"),'_help -> "", '_label -> "") { (id, name, value, args) =>
+											Title:<input style="width:100%; min-height:25px;" type="text" name="@name" id="@id" @toHtmlArgs(args)>
+										} 
+									</div>
+								</div>
+								<div class = "row">
+								<div class="col-md-12" style="text-align:left">
+									@helper.input(newThread("initialMessage"),'_help -> "", '_label -> "") { (id, name, value, args) =>
+										Message:<textarea style="width: 100%; min-height:300px" name="@name" id="@id" @toHtmlArgs(args)></textarea>
+									} 
+								</div>
+								</div>
+								<input type="submit" value="Create" class="btn btn-default">
+							}
+						</div>
+				<br/>
+				<small><a href="index">(Back to main)</a></small>
+			</div>
+		</div>
+    </body>
+</html>

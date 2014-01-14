@@ -23,8 +23,11 @@ GET     /members                            controllers.Account.allMembers()
 GET     /members                            controllers.Account.showSelf()
 GET     /members/:user                      controllers.Account.showUser(user: String)
 
+GET     /thread/new                         controllers.ThreadView.newThread()
+POST    /thread/new                         controllers.ThreadView.createThread()
+
 GET     /thread/                            controllers.ThreadView.threads()
-GET     /thread/:id                         controllers.ThreadView.showThread(id: Double)
+GET     /thread/:id                         controllers.ThreadView.showThread(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

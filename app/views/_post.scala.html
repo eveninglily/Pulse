@@ -1,4 +1,4 @@
-@(post: Post)
+@(post: models.Post)
 
 <div class="post-container" style="width:850px;  display: block; margin-left: auto; margin-right: auto; padding:0">
 	<div class="panel panel-default">
@@ -12,13 +12,13 @@
 		</div>
 		<div class="panel-body" style="padding: 0">
 			<div class="col-md-3" style="border: 1px solid #aaaaaa; margin-left: 0; height:100%; min-height:300px;  text-align:center;">
-				@post.poster.username <br/>
-				@post.poster.rank <br/><br/>
-				<img src="@post.poster.profileImage" style="padding: 10px"><br/>
-				<img src="http://i.imgur.com/Sx7bn0u.png"><br/>
-				<!-- <img src="http://i.imgur.com/WHCNd9g.png"><br/><br/> -->
-				@post.poster.postCount Posts<br/>
-				@post.poster.repCount Rep</div>
+				<span class="@User.find.byId(post.posterID).rank">@User.find.byId(post.posterID).username </span><br/>
+				@User.find.byId(post.posterID).rank <br/><br/>
+				<img src="@User.find.byId(post.posterID).profileImage" style="padding: 10px"><br/>
+				<img src="http://i.imgur.com/QMym75V.png"><br/>
+				<img src="http://i.imgur.com/2liA6S1.png"><br/><br/> 
+				@User.find.byId(post.posterID).postCount Posts<br/>
+				@User.find.byId(post.posterID).repCount Rep</div>
 				<div class="col-md-9" style="border: 1px solid #aaaaaa; margin: 0; min-height:300px; text-align:left; padding-top:20px; padding-left:20px">
 				@post.message
 				</div>

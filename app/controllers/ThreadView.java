@@ -8,14 +8,30 @@ import views.html.*;
 import java.util.*;
 
 public class ThreadView extends Controller {
-	public static Result showThread(double id){
-		System.out.println(UserUtils.loginCheck().username);
-		ForumThread t = new ForumThread(UserUtils.loginCheck(),"Hi", new Post(UserUtils.loginCheck(), "Lorem Ipsum", "hi"));
-		t.posts.add(new Post(UserUtils.loginCheck(), "Lorem Ipsum", "hi"));
-		t.posts.add(new Post(UserUtils.loginCheck(), "Lorem Ipsum", "hi"));
-		t.posts.add(new Post(UserUtils.loginCheck(), "Lorem Ipsum", "hi"));
+	static Form<ForumThread> newThread = Form.form(ForumThread.class);
+
+	public static Result showThread(long id){
+
+		return ok(views.html.threadview.render(ForumThread.find.byId(1L)));
+	}
+	
+	public static Result createThread(){
+		Form<ForumThread> form = newThread.bindFromRequest();
 		
-		return ok(views.html.threadview.render(t));
+		if(User.find.byId(session().get("user")) == null || User.find.byId(session().get("user")).id.equals("guest")){
+		return badRequest(views.html.newthread.render(form, "You must be logged in to post!"));
+		}
+
+		if(form.hasErrors()) {
+			return badRequest(views.html.newthread.render(form, "errors"));
+		} else {
+			ForumThread.create(new ForumThread(User.find.byId(session().get("user")), form.get().title, form.get().initialMessage));
+			return redirect(routes.ThreadView.showThread(1));  //Lazy, I know, but only temp.
+		}
+	}
+	
+	public static Result newThread(){
+		return ok(views.html.newthread.render(newThread, ""));
 	}
 	
 	public static Result threads() {

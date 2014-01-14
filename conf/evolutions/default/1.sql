@@ -4,9 +4,18 @@
 # --- !Ups
 
 create table threads (
-  id                        double not null,
+  id                        bigint not null,
   title                     varchar(255),
+  initial_message           varchar(255),
   constraint pk_threads primary key (id))
+;
+
+create table posts (
+  poster_id                 varchar(255),
+  message                   varchar(255),
+  title                     varchar(255),
+  id                        bigint,
+  forum_thread_id           bigint)
 ;
 
 create table user (
@@ -25,6 +34,8 @@ create sequence threads_seq;
 
 create sequence user_seq;
 
+alter table posts add constraint fk_posts_forumThread_1 foreign key (forum_thread_id) references threads (id) on delete restrict on update restrict;
+create index ix_posts_forumThread_1 on posts (forum_thread_id);
 
 
 
@@ -33,6 +44,8 @@ create sequence user_seq;
 SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists threads;
+
+drop table if exists posts;
 
 drop table if exists user;
 

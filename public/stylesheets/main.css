@@ -7,21 +7,25 @@ margin-left:auto;
 margin-right:auto;
 }
 
-.admin {
+.Admin {
 color:red;
 font-weight:bold;
 }
 
-.senior {
+.Senior {
 color: purple;
 font-weight:bold;
 }
 
-.mod {
+.Mod {
 color:green;
 font-weight:bold;
 }
 
-.user {
+.User {
 color:blue;
+}
+
+.Guest {
+color:grey;
 }
