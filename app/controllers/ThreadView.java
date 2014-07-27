@@ -9,10 +9,11 @@ import java.util.*;
 
 public class ThreadView extends Controller {
 	static Form<ForumThread> newThread = Form.form(ForumThread.class);
-
+	static Form<Post> newPost = Form.form(Post.class);
+	
 	public static Result showThread(long id){
 
-		return ok(views.html.threadview.render(ForumThread.find.byId(1L)));
+		return ok(views.html.threadview.render(ForumThread.find.byId(id), newPost));
 	}
 	
 	public static Result createThread(){
@@ -36,5 +37,24 @@ public class ThreadView extends Controller {
 	
 	public static Result threads() {
 		return ok(views.html.threads.render(ForumThread.all()));
+	}
+	
+	public static Result addPost(long id) {
+		Form<Post> form = newPost.bindFromRequest();
+		
+		if(UserUtils.loginCheck() == null || User.find.byId(session().get("user")).id.equals("guest")){	
+		return redirect(routes.ThreadView.showThread(id));
+		}
+		
+		if(ForumThread.find.byId(id).isLocked) {
+			return redirect(routes.ThreadView.showThread(id));
+		}
+
+		if(form.hasErrors()) {
+			return redirect(routes.ThreadView.showThread(id));
+		} else {
+			Post post = new Post(UserUtils.loginCheck().id, form.get().message, ForumThread.find.byId(id).title, ForumThread.find.byId(id), id);
+			return redirect(routes.ThreadView.showThread(id));  //Lazy, I know, but only temp.
+		}
 	}
 }

@@ -22,6 +22,9 @@ public class ForumThread extends Model{
 	@Column
 	public User creator;
 	
+	@Column
+	public boolean isLocked;
+	
 	public String initialMessage;
 	
 	public static play.db.ebean.Model.Finder<Long, ForumThread> find = new Finder<Long, ForumThread>(Long.class, ForumThread.class);
@@ -29,9 +32,8 @@ public class ForumThread extends Model{
 	public ForumThread(User creator, String title, String initialMessage) {
 		this.creator = creator;
 		this.title = title;
-		
+		isLocked = false;
 		create(this);
-		System.out.println(this.id + ": On Thread Creation");
 		Post post = new Post(creator.id, initialMessage, title, this, this.id);
     }
 	
@@ -41,5 +43,18 @@ public class ForumThread extends Model{
 	
 	public static List<ForumThread> all(){
 		return find.all();
+	}
+	
+	public static void toggleLock(long id) {
+		ForumThread thread = ForumThread.find.byId(id);
+		if(thread.isLocked ) {
+			thread.isLocked = false;
+			System.out.println("unlock");
+		}
+		else {
+			thread.isLocked = true;
+			System.out.println("lock");
+		}
+		thread.save();
 	}
 }

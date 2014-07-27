@@ -6,6 +6,7 @@
 create table threads (
   id                        bigint not null,
   title                     varchar(255),
+  is_locked                 boolean,
   initial_message           varchar(255),
   constraint pk_threads primary key (id))
 ;

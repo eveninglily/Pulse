@@ -1,4 +1,4 @@
-@(thread: ForumThread)
+@(thread: ForumThread)(newPost: Form[Post])
 
 <!DOCTYPE html>
 
@@ -22,6 +22,36 @@
 		
 		@for(post <- Post.getPosts(thread.id)){
 			@_post(post)
+		}
+		
+		@if(thread.isLocked == false) {
+			<div class="panel panel-default" style = "width:850px; float:center; text-aligh:center; margin:auto;">
+				<div class="panel-heading" style="text-align:left; min-height:50px">
+					<h1>New Reply</h1>
+				</div>
+				<div class="panel-body" >				
+							<div>
+								@helper.form(routes.ThreadView.addPost(thread.id)) {
+									<div class = "row">
+										<div class="col-md-12" style="text-align:left">
+											@helper.input(newPost("message"),'_help -> "", '_label -> "") { (id, name, value, args) =>
+												Message:<textarea style="width: 100%; min-height:300px" name="@name" id="@id" @toHtmlArgs(args)></textarea>
+											} 
+										</div>
+									</div>
+									<input type="submit" value="Create" class="btn btn-default">
+								}
+							</div>
+					<br/>
+					<small><a href="index">(Back to main)</a></small>
+				</div>
+			</div>
+		} else {
+			<div class="panel panel-default" style = "width:850px; float:center; text-align:center; margin:auto;">
+				<div class="panel-body" style="text-align:center; min-height:50px">
+					<h1 style="color:red"> This Thread is locked, you cannot reply </h1>
+				</div>
+			</div>
 		}
     </body>
 </html>

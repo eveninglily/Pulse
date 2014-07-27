@@ -41,8 +41,10 @@
 							<button type="button" class="btn btn-default"> Report </button>
 						</div>
 					</div>
+					
+					<hr/>
 	  
-					<h1> Ratings </h1><hr/>
+					<h1> Ratings </h1>
 					<div class = "row">
 						<div class="col-md-6" style="">
 							<span class="glyphicon glyphicon-thumbs-up"></span> Agree x 1 <br/>
@@ -63,6 +65,23 @@
 							</div>
 						</div>
 					</div>
+					@if(UserUtils.loginCheck().rank.equals(Rank.Admin)) {
+					<hr/>
+					<div class = "row">
+						<div class="col-md-12" style="">
+							<h1> Moderation Options </h1>
+							@if(post.forumThread.isLocked == false) {
+							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirm">
+								Lock Thread
+							</button>
+							} else {
+								<a class="btn btn-success" href="/thread/lock/@post.forumThread.id">Unlock</a>
+							}
+							<button type="button" class="btn btn-danger"> Delete Thread </button>
+							<button type="button" class="btn btn-danger">  </button>
+						</div>
+					</div>
+					}
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -70,4 +89,7 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
+	<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		@_lockconfirm(post.forumThread.id)
+	</div>
 </div>
